@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+
+<link rel="stylesheet" href="../dist/output.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<style>
+        .serif-text { font-family: 'Inter', sans-serif; font-weight: 700; }
+        .glass-nav { backdrop-filter: blur(12px); background-color: rgba(10, 10, 12, 0.85); }
+        .text-stroke { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
+        .cyber-gradient { background: linear-gradient(135deg, #1a1a1f 0%, #0a0a0c 100%); }
+        .grid-pattern {
+            background-image: radial-gradient(circle, rgba(127, 25, 230, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mesh Gradients */
+        .mesh-gradient-1 {
+            background: radial-gradient(circle at 50% 50%, rgba(127, 25, 230, 0.15) 0%, transparent 60%);
+        }
+        .mesh-gradient-2 {
+            background: radial-gradient(circle at 20% 80%, rgba(127, 25, 230, 0.1) 0%, transparent 50%);
+        }
+        
+        /* Cyber Glow Text */
+        .cyber-glow-text {
+            text-shadow: 0 0 30px rgba(127, 25, 230, 0.3);
+        }
+        
+        /* Hover Effects */
+        .hover-card-glow {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-card-glow:hover {
+            box-shadow: 0 0 30px rgba(127, 25, 230, 0.15);
+            border-color: rgba(127, 25, 230, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Hero entrance animations */
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroFadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @keyframes heroLineExpand {
+            from { width: 0; opacity: 0; }
+            to   { width: 3rem; opacity: 1; }
+        }
+        .hero-line    { animation: heroLineExpand 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
+        .hero-label   { animation: heroFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.4s both; }
+        .hero-title   { animation: heroFadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.6s both; }
+        .hero-desc    { animation: heroFadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.85s both; }
+        .hero-buttons { animation: heroFadeUp 1s cubic-bezier(0.22,1,0.36,1) 1.05s both; }
+        .hero-scroll  { animation: heroFadeIn 1s ease 1.4s both; }
+
+        /* Navbar entrance animation */
+        @keyframes navSlideDown {
+            from { opacity: 0; transform: translateY(-100%); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .nav-enter { animation: navSlideDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both; }
+
+        /* Fix animate-bounce para hero-scroll en v4 */
+        @keyframes bounceIcon {
+            0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+            50%       { transform: translateY(-12px); animation-timing-function: cubic-bezier(0,0,0.2,1); }
+        }
+        .hero-scroll {
+            animation: heroFadeIn 1s ease 1.4s both, bounceIcon 1s infinite 1.4s;
+        }
+
+        .hero-aurora {
+            background: linear-gradient(
+                220deg,
+                rgba(127, 25, 230, 0.05) 0%,
+                rgba(127, 25, 230, 0.1) 25%,
+                rgba(10, 10, 12, 0) 50%,
+                rgba(127, 25, 230, 0.05) 75%,
+                rgba(127, 25, 230, 0.1) 100%
+            );
+            background-size: 400% 400%;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased selection:bg-primary selection:text-white">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<!-- Navbar -->
+<header class="nav-enter fixed top-0 z-50 w-full border-b border-white/5 glass-nav px-6 lg:px-20 py-5">
+<nav class="flex items-center justify-between max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">token</span>
+<h1 class="text-2xl font-bold tracking-tighter uppercase">CGweb</h1>
+</div>
+<div class="hidden md:flex items-center gap-12 text-[11px] uppercase tracking-[0.2em] font-bold">
+<a class="hover:text-primary transition-colors" href="#services">Servicios</a>
+<a class="hover:text-primary transition-colors" href="#about">Nosotros</a>
+<a class="hover:text-primary transition-colors" href="#testimonials">Clientes</a>
+<a class="hover:text-primary transition-colors" href="#contact">Contacto</a>
+</div>
+<button class="bg-primary text-white px-8 py-2.5 rounded font-bold text-xs hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.15em] shadow-lg shadow-primary/20">
+                    Contactar
+                </button>
+</nav>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden grid-pattern">
+<!-- Advanced Background Light Animations -->
+<div class="absolute inset-0 hero-aurora animate-aurora mix-blend-screen opacity-60"></div>
+<div class="absolute top-1/4 -left-10 w-[500px] h-[500px] mesh-gradient-1 animate-orb-move blur-[100px] opacity-40"></div>
+<div class="absolute bottom-1/4 -right-10 w-[600px] h-[600px] mesh-gradient-2 animate-orb-move-reverse blur-[120px] opacity-30"></div>
+<div class="absolute top-20 left-10 w-64 h-64 border border-primary/20 rounded-full animate-slow-pulse"></div>
+<div class="absolute bottom-20 right-10 w-96 h-96 border border-primary/10 rounded-full animate-float"></div>
+<!-- Central Cyber Glow Orb -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full animate-glow blur-[140px] pointer-events-none"></div>
+<!-- Dynamic Scanning Line -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden opacity-10">
+<div class="w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent animate-scanline"></div>
+</div>
+<!-- Grid Accents -->
+<div class="absolute inset-0 opacity-20 flex items-center justify-center pointer-events-none">
+<div class="w-full h-full max-w-7xl grid grid-cols-6 gap-4 p-8">
+<div class="border-l border-t border-primary/20 h-32 w-32 animate-pulse relative">
+<div class="absolute top-0 left-0 w-2 h-2 bg-primary animate-ping"></div>
+</div>
+<div class="col-start-5 border-r border-b border-primary/20 h-32 w-32 ml-auto animate-pulse relative" style="animation-delay: 1s;">
+<div class="absolute bottom-0 right-0 w-2 h-2 bg-primary animate-ping" style="animation-delay: 1s;"></div>
+</div>
+<div class="row-start-4 col-start-2 border-l border-b border-primary/20 h-24 w-24 animate-pulse" style="animation-delay: 2s;"></div>
+</div>
+</div>
+<div class="relative z-20 text-center px-4 max-w-6xl mx-auto">
+<div class="flex justify-center mb-8 hero-line">
+<div class="w-12 h-1 bg-primary shadow-[0_0_15px_rgba(127,25,230,0.8)]"></div>
+</div>
+<span class="hero-label text-primary font-bold uppercase tracking-[0.5em] mb-8 block text-xs cyber-glow-text">Estética Digital / 3.0</span>
+<h1 class="hero-title text-7xl md:text-[9rem] font-black leading-[0.85] tracking-tighter mb-12 uppercase cyber-glow-text">
+                        Código <br/>
+<span class="text-stroke">Creado</span> <br/>
+                        Con Arte
+                    </h1>
+<p class="hero-desc text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed mb-12 tracking-wide uppercase">
+                        La intersección entre la dirección de arte editorial y la ingeniería web de vanguardia. Transformamos lógica en experiencias minimalistas e impactantes.
+                    </p>
+<div class="hero-buttons flex flex-col sm:flex-row items-center justify-center gap-6">
+<button class="w-full sm:w-auto bg-primary text-white px-12 py-5 rounded font-bold text-sm tracking-[0.2em] hover:scale-105 active:scale-95 transition-transform uppercase shadow-xl shadow-primary/20 relative group overflow-hidden">
+<span class="relative z-10">Ver Proyectos</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</button>
+<button class="w-full sm:w-auto border border-white/10 hover:bg-white/5 px-12 py-5 rounded font-bold text-sm tracking-[0.2em] transition-colors uppercase backdrop-blur-sm">
+                            Conocer Más
+                        </button>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hero-scroll">
+<span class="material-symbols-outlined text-primary/50 text-4xl cyber-glow-text">keyboard_double_arrow_down</span>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-32 px-6 lg:px-20 max-w-7xl mx-auto" id="services">
+<div class="flex flex-col mb-24 reveal">
+<h2 class="text-primary font-bold uppercase tracking-[0.4em] text-xs mb-6">Especialidades</h2>
+<h3 class="text-5xl md:text-7xl font-bold uppercase leading-none tracking-tighter">Soluciones<br/><span class="text-stroke">Digitales</span></h3>
+</div>
+<div class="grid grid-cols-1 gap-12">
+<!-- Service 1: Premium Web Design -->
+<div class="reveal group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center border-t border-white/5 pt-16 hover-card-glow p-8 -mx-8 rounded-xl">
+<div class="order-2 lg:order-1">
+<span class="text-primary text-sm font-bold tracking-widest block mb-4">01. ARQUITECTURA DE DISEÑO</span>
+<h4 class="text-4xl font-bold uppercase mb-6 tracking-tight">Diseño Web Premium</h4>
+<p class="text-slate-400 text-lg font-light leading-relaxed mb-8">
+                                Estética que genera impacto. Diseñamos interfaces visualmente ricas que combinan movimiento fluido con composiciones editoriales, garantizando que tu marca sea tan memorable como una gran campaña.
+                            </p>
+<ul class="space-y-3 text-sm text-slate-500 uppercase tracking-widest font-medium">
+<li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform"></span> Sistemas de Tipografía Editorial</li>
+<li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform"></span> Diseño de Interacción de Alta Fidelidad</li>
+<li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform"></span> Narrativa Visual Inmersiva</li>
+</ul>
+</div>
+<div class="order-1 lg:order-2 aspect-[16/9] flex items-center justify-center rounded bg-white/[0.02] border border-white/5 relative overflow-hidden group-hover:bg-white/[0.04] transition-colors">
+<div class="relative w-48 h-48 flex items-center justify-center">
+<div class="absolute inset-0 border border-primary/20 rotate-45 scale-75 group-hover:scale-100 group-hover:border-primary/40 transition-all duration-700"></div>
+<div class="absolute inset-0 border border-primary/40 -rotate-45 scale-50 group-hover:scale-90 group-hover:border-primary/60 transition-all duration-1000"></div>
+<span class="material-symbols-outlined text-primary relative z-10 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" style="font-size: 8rem;">layers</span>
+</div>
+<div class="absolute inset-0 grid-pattern opacity-20"></div>
+</div>
+</div>
+<!-- Service 2: Custom Web Apps -->
+<div class="reveal group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center border-t border-white/5 pt-16 hover-card-glow p-8 -mx-8 rounded-xl">
+<div class="aspect-[16/9] flex items-center justify-center rounded bg-white/[0.02] border border-white/5 relative overflow-hidden group-hover:bg-white/[0.04] transition-colors">
+<div class="relative w-48 h-48 flex items-center justify-center">
+<div class="absolute w-full h-px bg-primary/30 group-hover:w-1/2 transition-all duration-700"></div>
+<div class="absolute h-full w-px bg-primary/30 group-hover:h-1/2 transition-all duration-700"></div>
+<div class="w-24 h-24 border-2 border-primary rounded-sm flex items-center justify-center group-hover:scale-125 transition-transform">
+<span class="material-symbols-outlined text-4xl text-primary">data_object</span>
+</div>
+</div>
+<div class="absolute inset-0 grid-pattern opacity-20"></div>
+</div>
+<div>
+<span class="text-primary text-sm font-bold tracking-widest block mb-4">02. INGENIERÍA DE SISTEMAS</span>
+<h4 class="text-4xl font-bold uppercase mb-6 tracking-tight">Aplicaciones Web a Medida</h4>
+<p class="text-slate-400 text-lg font-light leading-relaxed mb-8">
+                                Potencia y precisión. Desarrollamos aplicaciones de nivel empresarial con funcionalidades complejas, adaptadas exactamente a tu lógica de negocio, con alta escalabilidad y rendimiento superior.
+                            </p>
+<ul class="space-y-3 text-sm text-slate-500 uppercase tracking-widest font-medium">
+<li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform"></span> Arquitectura Cloud Escalable</li>
+<li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform"></span> Sincronización de Datos en Tiempo Real</li>
+<li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform"></span> Ecosistemas Backend Personalizados</li>
+</ul>
+</div>
+</div>
+<!-- Service 3: Páginas Web Sencillas -->
+<div class="reveal group grid grid-cols-1 lg:grid-cols-2 gap-12 items-center border-t border-white/5 pt-16 hover-card-glow p-8 -mx-8 rounded-xl">
+<div class="order-2 lg:order-1">
+<span class="text-primary text-sm font-bold tracking-widest block mb-4">03. PRESENCIA DIGITAL ACCESIBLE</span>
+<h4 class="text-4xl font-bold uppercase mb-6 tracking-tight">Páginas Web Sencillas</h4>
+<p class="text-slate-400 text-lg font-light leading-relaxed mb-8">
+                                Presencia digital para cada visión. Ofrecemos landing pages asequibles y totalmente personalizables para cualquier necesidad, llevando tu mensaje a tu audiencia sin fricciones técnicas innecesarias.
+                            </p>
+<ul class="space-y-3 text-sm text-slate-500 uppercase tracking-widest font-medium">
+<li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform"></span> Landing Pages Asequibles</li>
+<li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform"></span> Layouts Totalmente Personalizables</li>
+<li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary rounded-full group-hover:scale-150 transition-transform"></span> Despliegue Rápido y Efectivo</li>
+</ul>
+</div>
+<div class="order-1 lg:order-2 aspect-[16/9] flex items-center justify-center rounded bg-white/[0.02] border border-white/5 relative overflow-hidden group-hover:bg-white/[0.04] transition-colors">
+<div class="relative flex items-center gap-1">
+<div class="w-8 h-12 border border-primary/40 group-hover:h-20 transition-all"></div>
+<div class="w-8 h-16 border-x border-primary group-hover:h-24 transition-all"></div>
+<div class="w-8 h-12 border border-primary/40 group-hover:h-20 transition-all"></div>
+<span class="material-symbols-outlined text-primary absolute -right-16 group-hover:translate-x-4 group-hover:scale-110 transition-all" style="font-size: 6rem;">auto_awesome</span>
+</div>
+<div class="absolute inset-0 grid-pattern opacity-20"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Who We Are -->
+<section class="py-32 bg-primary/[0.03] overflow-hidden" id="about">
+<div class="max-w-7xl mx-auto px-6 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div class="relative flex items-center justify-center reveal">
+<div class="absolute text-white/[0.03] font-bold leading-none select-none tracking-tighter -top-20" style="font-size: 16rem;">ATELIER</div>
+<div class="w-full h-[500px] bg-background-dark border border-white/10 rounded flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 grid-pattern opacity-10"></div>
+<div class="relative z-10 p-12 text-center group">
+<span class="material-symbols-outlined text-primary leading-none transition-transform duration-1000 group-hover:rotate-180" style="font-size: 12rem;">architecture</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div class="text-[10px] text-slate-700 font-mono uppercase">NODE_772_SYNAPSE</div>
+<div class="w-24 h-px bg-primary/30"></div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-10 reveal">
+<h2 class="text-5xl md:text-7xl font-bold leading-[0.9] uppercase tracking-tighter">El<br/><span class="text-primary">Enfoque</span></h2>
+<p class="text-xl text-slate-400 font-light leading-relaxed">
+                            En CGweb, vamos más allá del desarrollo tradicional. Operamos como un atelier digital donde el código se trabaja con reverencia técnica. Nuestra metodología es una colisión entre precisión geométrica y visión artística, creando experiencias que resuenan en el espacio digital.
+                        </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10 pt-8 border-t border-white/5">
+<div>
+<span class="text-primary font-bold block mb-4 uppercase tracking-widest text-xs">01. Precisión</span>
+<p class="text-sm text-slate-500 leading-relaxed font-light uppercase tracking-wider">Alineación meticulosa de cada hilo de lógica y cada píxel visual.</p>
+</div>
+<div>
+<span class="text-primary font-bold block mb-4 uppercase tracking-widest text-xs">02. Evolución</span>
+<p class="text-sm text-slate-500 leading-relaxed font-light uppercase tracking-wider">Adaptación constante a la vanguardia de las tecnologías web.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-40 px-6 lg:px-20 max-w-6xl mx-auto text-center reveal" id="testimonials">
+<span class="material-symbols-outlined text-primary text-5xl mb-12 animate-pulse">all_inclusive</span>
+<div class="space-y-16">
+<div class="group">
+<blockquote id="glitch-quote" class="text-4xl md:text-6xl font-light uppercase tracking-tight leading-[1.1] mb-10 transition-colors group-hover:text-primary"></blockquote>
+<cite id="glitch-cite" class="text-xs uppercase tracking-[0.4em] font-bold not-italic text-slate-500"></cite>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-32 px-6 lg:px-20 border-t border-white/5 cyber-gradient overflow-hidden" id="contact">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+<div class="reveal">
+<h2 class="text-6xl font-bold uppercase tracking-tighter mb-8 leading-none">Iniciemos tu <br/><span class="text-primary">Proyecto</span></h2>
+<p class="text-slate-400 mb-16 max-w-md text-lg font-light leading-relaxed">¿Listo para llevar tu marca a la nueva dimensión digital? Nuestro equipo está aceptando proyectos seleccionados.</p>
+<div class="space-y-8">
+<div class="flex items-center gap-6 group cursor-pointer">
+<span class="material-symbols-outlined text-primary p-3 bg-white/5 rounded-full transition-all group-hover:bg-primary group-hover:text-white group-hover:scale-110">alternate_email</span>
+<span class="font-bold tracking-widest uppercase text-sm border-b border-transparent group-hover:border-primary/30 transition-all"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b5a4f575a487b585c4c5e59154842554f535e4f5258">[email&#160;protected]</a></span>
+</div>
+<div class="flex items-center gap-6 group cursor-pointer">
+<span class="material-symbols-outlined text-primary p-3 bg-white/5 rounded-full transition-all group-hover:bg-primary group-hover:text-white group-hover:scale-110">hub</span>
+<span class="font-bold tracking-widest uppercase text-sm border-b border-transparent group-hover:border-primary/30 transition-all">Paris HQ / Node 07</span>
+</div>
+</div>
+</div>
+<div class="reveal flex flex-col items-center justify-center bg-white/[0.02] p-16 rounded border border-white/5 text-center relative overflow-hidden group hover:border-primary/20 transition-all duration-500">
+<!-- Inner Glow Animation -->
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+<div class="mb-8 relative">
+<span class="material-symbols-outlined text-6xl text-primary animate-pulse group-hover:scale-110 transition-transform">forum</span>
+</div>
+<h3 class="text-2xl font-bold uppercase tracking-[0.2em] mb-4">Canal Directo</h3>
+<p class="text-slate-500 text-sm uppercase tracking-widest mb-10 max-w-xs mx-auto font-light">Sin esperas. Conéctate con nuestro equipo al instante por enlace móvil.</p>
+<a class="group relative w-full overflow-hidden bg-primary text-white font-bold py-4 px-4 text-xs sm:text-sm rounded transition-all uppercase tracking-[0.1em] sm:tracking-[0.2em] flex items-center justify-center gap-2 hover:brightness-110 shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 active:translate-y-0" href="https://wa.me/#" target="_blank">
+<span class="material-symbols-outlined text-lg shrink-0 group-hover:rotate-12 transition-transform">chat</span>
+<span>Contactar por WhatsApp</span>
+<!-- Shine Effect -->
+<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover:left-full transition-all duration-1000"></div>
+</a>
+<div class="mt-8 flex items-center justify-center gap-2">
+<span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span>
+<span class="text-[10px] text-slate-600 uppercase tracking-[0.4em]">Señal Activa</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="py-16 px-6 lg:px-20 border-t border-white/5 bg-background-dark">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+<div class="flex items-center gap-3 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-primary">token</span>
+<span class="text-xl font-bold tracking-tighter uppercase">CGweb</span>
+</div>
+<p class="text-[10px] text-slate-600 uppercase tracking-[0.4em]">© 2024 CGweb. Todos los derechos reservados. Construido para el futuro.</p>
+<div class="flex gap-10">
+<a class="text-slate-500 hover:text-primary transition-colors uppercase text-[9px] tracking-[0.3em] font-bold" href="#">Insta</a>
+<a class="text-slate-500 hover:text-primary transition-colors uppercase text-[9px] tracking-[0.3em] font-bold" href="#">Behance</a>
+<a class="text-slate-500 hover:text-primary transition-colors uppercase text-[9px] tracking-[0.3em] font-bold" href="#">X-Labs</a>
+</div>
+</div>
+</footer>
+</div>
+<script>
+        // Reveal animation using IntersectionObserver
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ── Glitch Decode Effect ──────────────────────────────────────────────
+        const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&!?/\\|[]{}*^~';
+
+        const QUOTE_TEXT = '"CGweb nos hizo una landing page increible. En menos de una semana ya teniamos clientes nuevos entrando por la pagina. Muy profesionales y el resultado fue muy bonito."';
+        const CITE_TEXT  = '— R. Gutierrez, Propietario de Materiales El Constructor, Cali';
+
+        // Highlighted words in the quote
+        const HIGHLIGHT  = 'fue muy bonito';
+
+        function randomChar() {
+            return CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
+
+        function decodeText(element, finalText, duration, highlightWord, onDone) {
+            const totalFrames = Math.floor(duration / 30);
+            let frame = 0;
+
+            const interval = setInterval(() => {
+                frame++;
+                const progress = frame / totalFrames; // 0 → 1
+                const revealed = Math.floor(progress * finalText.length);
+
+                let display = '';
+                for (let i = 0; i < finalText.length; i++) {
+                    const ch = finalText[i];
+                    if (i < revealed) {
+                        // Already decoded — show real char
+                        display += ch;
+                    } else if (ch === ' ') {
+                        display += ' ';
+                    } else {
+                        // Still scrambling
+                        display += randomChar();
+                    }
+                }
+
+                // Inject with highlight
+                if (highlightWord) {
+                    const safe = display.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                    const hStart = finalText.indexOf(highlightWord);
+                    const hEnd   = hStart + highlightWord.length;
+                    const before = safe.slice(0, hStart);
+                    const mid    = safe.slice(hStart, hEnd);
+                    const after  = safe.slice(hEnd);
+                    element.innerHTML = before + '<span class="text-primary">' + mid + '</span>' + after;
+                } else {
+                    element.textContent = display;
+                }
+
+                if (frame >= totalFrames) {
+                    clearInterval(interval);
+                    // Set final clean state
+                    if (highlightWord) {
+                        const hStart = finalText.indexOf(highlightWord);
+                        const hEnd   = hStart + highlightWord.length;
+                        element.innerHTML =
+                            finalText.slice(0, hStart) +
+                            '<span class="text-primary">' + highlightWord + '</span>' +
+                            finalText.slice(hEnd);
+                    } else {
+                        element.textContent = finalText;
+                    }
+                    if (onDone) onDone();
+                }
+            }, 30);
+        }
+
+        // Trigger when testimonials section enters viewport
+        const quoteEl = document.getElementById('glitch-quote');
+        const citeEl  = document.getElementById('glitch-cite');
+
+        // Start empty
+        if (quoteEl) quoteEl.textContent = '';
+        if (citeEl)  citeEl.textContent  = '';
+
+        const testimonialSection = document.getElementById('testimonials');
+        let glitchPlayed = false;
+
+        const glitchObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !glitchPlayed) {
+                    glitchPlayed = true;
+                    glitchObserver.unobserve(entry.target);
+                    // Decode quote first, then cite after a short delay
+                    decodeText(quoteEl, QUOTE_TEXT, 2800, HIGHLIGHT, () => {
+                        setTimeout(() => {
+                            decodeText(citeEl, CITE_TEXT, 1200, null, null);
+                        }, 200);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        if (testimonialSection) glitchObserver.observe(testimonialSection);
+</script>
+</body>
+</html>
